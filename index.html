@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+
+	<script>
+		(function () {
+			// Boomerang Loader Snippet version 10
+			if (window.BOOMR && (window.BOOMR.version || window.BOOMR.snippetExecuted)) {
+				return;
+			}
+
+			window.BOOMR = window.BOOMR || {};
+			window.BOOMR.snippetExecuted = true;
+
+			var dom, doc, where, iframe = document.createElement("iframe"),
+				win = window;
+
+			function boomerangSaveLoadTime(e) {
+				win.BOOMR_onload = (e && e.timeStamp) || new Date().getTime();
+			}
+
+			if (win.addEventListener) {
+				win.addEventListener("load", boomerangSaveLoadTime, false);
+			} else if (win.attachEvent) {
+				win.attachEvent("onload", boomerangSaveLoadTime);
+			}
+
+			iframe.src = "javascript:void(0)";
+			iframe.title = "";
+			iframe.role = "presentation";
+			(iframe.frameElement || iframe).style.cssText = "width:0;height:0;border:0;display:none;";
+			where = document.getElementsByTagName("script")[0];
+			where.parentNode.insertBefore(iframe, where);
+
+			try {
+				doc = iframe.contentWindow.document;
+			} catch (e) {
+				dom = document.domain;
+				iframe.src = "javascript:var d=document.open();d.domain='" + dom + "';void(0);";
+				doc = iframe.contentWindow.document;
+			}
+
+			doc.open()._l = function () {
+				var js = this.createElement("script");
+				if (dom) {
+					this.domain = dom;
+				}
+				js.id = "boomr-if-as";
+				js.src = 'file:///Users/victor/boomerang/boomerang.js';
+				BOOMR_lstart = new Date().getTime();
+				this.body.appendChild(js);
+			};
+			doc.write('<bo' + 'dy onload="document._l();">');
+			doc.close();
+
+			// Beacon to boomcatch
+			if (document.addEventListener) {
+				document.addEventListener("onBoomerangLoaded", function (e) {
+					e.detail.BOOMR.init({
+						beacon_url: 'http://localhost:8888/beacon'
+					});
+					e.detail.BOOMR.t_end = new Date().getTime();
+				});
+			}
+			// IE 6, 7, 8 we use onPropertyChange and look for propertyName === "onBoomerangLoaded"
+			else if (document.attachEvent) {
+				document.attachEvent("onpropertychange", function (e) {
+					if (!e) e = event;
+					if (e.propertyName === "onBoomerangLoaded") {
+						e.detail.BOOMR.init({
+							beacon_url: 'http://localhost:8888/beacon'
+						});
+						e.detail.BOOMR.t_end = new Date().getTime();
+					}
+				});
+			}
+		})();
+	</script>
+
+<!-- <script src="./plugin/rt.min.js"></script>
+<script src="./plugin/auto-xhr.min.js"></script>
+<script src="./plugin/clicks.min.js"></script>
+<script src="./plugin/continuity.min.js"></script>
+<script src="./plugin/dns.min.js"></script>
+<script src="./plugin/errors.min.js"></script>
+<script src="./plugin/guid.min.js"></script>
+<script src="./plugin/navtiming.min.js"></script>
+<script src="./plugin/usertiming.min.js"></script> -->
+</head>
+
+<body>
+
+</body>
+
+</html>
